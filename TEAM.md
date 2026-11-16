@@ -13,8 +13,8 @@
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 | Nguyễn Tuấn Phong | 20210001 | phong.nt@example.com | ntphong404 | Shape A Workflow, Integration |
 |   2 | Lê Anh Quân | 20210002 | quan.la@example.com | quanle28 | Shape B Single (ReAct) |
-|   3 | Kim Đức Thắng | 20210003 | thang.kd@example.com | thangbeo141 | Shape C Orchestrator, Handoff |
-|   4 | Trần Đức Mạnh | 20210004 | trmanh204@gmail.com | trmanh204 | Shape D Swarm, Crash Suite, Eval & ADR |
+|   3 | Kim Đức Thắng | 2A202603702 | thangtobeo141@gmail.com | thangbeo141 | Shape C Orchestrator, Handoff |
+|   4 | Trần Đức Mạnh | 2A202603615 | trmanh204@gmail.com | trmanh204 | Shape D Swarm, Crash Suite, Eval & ADR |
 
 Gợi ý chia vai:
 
@@ -44,7 +44,7 @@ Ví dụ: `report/team/20241234_NguyenVanAn.md`.
 
 Sao chép mục dưới đây cho từng thành viên.
 
-## 20210004_TranDucManh
+## 2A202603615_TranDucManh
 
 ### Phần việc phụ trách
 
@@ -57,3 +57,22 @@ Sao chép mục dưới đây cho từng thành viên.
 
 - Thêm bộ kiểm thử độc lập `src/tests/test_manh_eval.py` kiểm chứng tính nhất quán và phương sai của Swarm.
 - Hoàn thiện tài liệu `report/team/decision_adr.md` và `report/team/research_card.md`.
+
+## 2A202603702_KimDucThang
+
+### Phần việc phụ trách
+
+- Phụ trách Shape C Orchestrator và cơ chế phân tách quyền hạn Typed Handoff (`src/lab8/shapes/orchestrator.py`).
+- Đảm bảo ranh giới bảo mật không rò rỉ parent_secret, raw headers hay PII qua handoff và trace (tiêu chí C5).
+- Xử lý độ bền vững (CP3 Durability) với crash_at và lan truyền InjectedCrash.
+
+### Đóng góp cụ thể
+
+- Hiện thực toàn bộ hàm `run_claim` và `_run` cho Shape C trong `src/lab8/shapes/orchestrator.py`.
+- Viết bộ kiểm thử hồi quy và an toàn `src/tests/test_orchestrator_safety.py`.
+
+### Bằng chứng
+
+- Commit hash: `927f00b`
+- File test: `src/tests/test_orchestrator_safety.py` (3 passed)
+- Báo cáo cá nhân: `report/team/2A202603702_KimDucThang.md`
