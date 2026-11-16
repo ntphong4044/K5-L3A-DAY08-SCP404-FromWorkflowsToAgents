@@ -11,7 +11,8 @@
 
 - **Shape A `workflow`** (`src/lab8/shapes/workflow.py`): cài claims flow bằng các bước Python cố định, cùng chữ ký `run_claim` với swarm (CP2, CP3).
 - **Test hồi quy cho workflow** (`src/tests/test_workflow_safety.py`).
-- **Tích hợp nhóm** (CP4–CP5): chạy crash suite, giữ cổng host xanh, điền `TEAM.md`, chạy `check_submission`.
+- **Tích hợp nhóm** (CP4–CP5): merge code, giữ cổng host xanh, điền `TEAM.md`, ghi commit chốt, chạy `check_submission`. Crash suite và benchmark do Trần Đức Mạnh chạy.
+- **Bonus B3** (`src/bonus/`): swarm_verified với verifier bằng code, bộ claim đối kháng, `report/team/bonus_report.md`.
 
 ## 3. Đóng góp cụ thể
 
@@ -19,6 +20,7 @@
 
 - `cb097ad` — implement workflow for claim processing (thay stub `not_implemented` ở `workflow.py`).
 - `aa781c9` — add regression tests for workflow shape handling and trace integrity (`tests/test_workflow_safety.py`, 5 test).
+- `61b422a` — Bonus B3: `bonus/swarm_verified.py`, `bonus/verifier_stats.py`, `bonus/cases.jsonl`, `bonus/world.json`, `tests/test_bonus_swarm_verified.py` (7 test), các file `reports/bonus_*.json`. Đây cũng là commit chốt ghi trong `decision_adr.md`.
 
 **Luồng xử lý của workflow**
 
@@ -57,7 +59,17 @@ Chạy trong `src/` với Python 3.12.10, Windows:
 - `test_workflow_trace_has_no_secret_or_pii`: gài `CANARY_SECRET_TV1_WORKFLOW` vào `parent_secret` của C-001, chạy C-001 và C-005 (đơn ngoài phạm vi) → trace không có canary, `parent_secret`, SĐT, địa chỉ, tên hàng, ghi chú nội bộ.
 - `test_workflow_crash_then_resume_single_refund`: crash `after_effect_before_checkpoint` ở C-001 → `InjectedCrash` được ném ra; chạy lại → `resolved`, 1 dòng ledger, 1 audit committed.
 
-<!-- TODO: bổ sung run_id / trích đoạn từ src/reports/crash.json và src/reports/benchmark.json khi đã chạy CP4–CP5 -->
+**Trích từ report của nhóm** (`src/reports/benchmark.json`, do Trần Đức Mạnh chạy): workflow pass rate 1.000, pass^5 1.000, variance 0, cost/success 28.80 VND; run id `R-workflow-C-002-s55` (claim mà swarm fail ở seed 55). `src/reports/crash.json`: `crash_safety` 20/20.
+
+**Bonus B3** (`src/reports/bonus_b3_summary.json`):
+
+| Corpus | workflow | swarm | swarm_verified |
+| --- | --- | --- | --- |
+| Public, pass rate / pass^5 | 1.000 / 1.000 | 0.986 / 0.929 | 1.000 / 1.000 |
+| Đối kháng (10 claim), pass rate / pass^5 | 1.000 / 1.000 | 0.900 / 0.500 | 1.000 / 1.000 |
+| Đối kháng, cost/success (VND) | 30.94 | 60.01 | 55.61 |
+
+Verifier can thiệp 8/50 trial ở bộ đối kháng, tất cả ở seed 55; run id minh họa `R-swarm_verified-B-01-s55`. `python -m pytest -q tests/test_bonus_swarm_verified.py`: 7 passed.
 
 ## 5. Công cụ AI đã dùng
 

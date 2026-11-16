@@ -6,7 +6,7 @@ Tối đa 5 trang ngoài phụ lục. Số liệu lấy từ file trong `src/rep
 
 - Tên nhóm: SCP404
 - Thành viên: xem `TEAM.md`
-- Commit chốt (trùng `report/team/decision_adr.md`): aba170e
+- Commit chốt (trùng `report/team/decision_adr.md`): 61b422a
 
 ## 2. Mục tiêu và cách tiếp cận
 
@@ -34,9 +34,10 @@ Số liệu trích xuất từ `src/reports/benchmark.json` (chạy trên 14 cla
 | **Orchestrator (C)** | 1.000 | 1.000 | 1.000 - 1.000 | 0.000000 | 47.37 | 5.36 |
 | **Swarm (D)** | 0.986 | 0.929 | 0.929 - 1.000 | 0.000816 | 49.57 | 2.80 |
 
-- **Crash Safety:** Đạt điểm tuyệt đối **`20/20`** theo báo cáo [src/reports/crash.json](file:///d:/LAB08/K5-L3A-DAY08-SCP404-FromWorkflowsToAgents/src/reports/crash.json), đảm bảo tính an toàn giao dịch khi xảy ra sự cố sập nguồn/crash ở mọi thời điểm.
-- **Quyết định kiến trúc:** Nhóm lựa chọn **Shape A (Workflow)** làm kiến trúc tối ưu để nộp bài đánh giá cổng hidden. Chi tiết lập luận nằm tại [report/team/decision_adr.md](file:///d:/LAB08/K5-L3A-DAY08-SCP404-FromWorkflowsToAgents/report/team/decision_adr.md).
-- **Nghiên cứu nguyên nhân thất bại (Ablation):** Chi tiết phân tích nguyên nhân thất bại của Swarm tại seed 55 nằm tại [report/team/research_card.md](file:///d:/LAB08/K5-L3A-DAY08-SCP404-FromWorkflowsToAgents/report/team/research_card.md).
+- **Crash Safety:** Đạt điểm tuyệt đối **`20/20`** theo báo cáo [src/reports/crash.json](../../src/reports/crash.json), đảm bảo tính an toàn giao dịch khi xảy ra sự cố sập nguồn/crash ở mọi thời điểm.
+- **Quyết định kiến trúc:** Nhóm lựa chọn **Shape A (Workflow)** làm kiến trúc tối ưu để nộp bài đánh giá cổng hidden. Chi tiết lập luận nằm tại [report/team/decision_adr.md](decision_adr.md).
+- **Nghiên cứu nguyên nhân thất bại (Ablation):** Chi tiết phân tích nguyên nhân thất bại của Swarm tại seed 55 nằm tại [report/team/research_card.md](research_card.md).
+- **Bonus B3 (verifier cho swarm):** thêm một bước kiểm tra bằng code trước khi ghi tiền. Trên bộ public, `swarm_verified` đạt pass rate 1.000, pass^5 1.000 (swarm gốc 0.986 / 0.929); trên 10 claim đối kháng tự viết, 1.000 / 1.000 so với 0.900 / 0.500 của swarm, chi phí thêm 1 tool call mỗi lần verifier can thiệp. Số liệu: `src/reports/bonus_b3_summary.json`; phân tích: [report/team/bonus_report.md](bonus_report.md).
 
 ## 5. Khó khăn và cách xử lý
 
@@ -46,7 +47,7 @@ Số liệu trích xuất từ `src/reports/benchmark.json` (chạy trên 14 cla
 
 ## 6. Tổng hợp đóng góp
 
-- **Nguyễn Tuấn Phong:** Hiện thực Shape A (`workflow.py`), bộ test `test_workflow_safety.py`.
+- **Nguyễn Tuấn Phong:** Hiện thực Shape A (`workflow.py`), bộ test `test_workflow_safety.py`, tích hợp nhóm, bonus B3 (`src/bonus/`, `test_bonus_swarm_verified.py`).
 - **Lê Anh Quân:** Hiện thực Shape B (`single.py`), bộ test `test_single_safety.py`.
 - **Kim Đức Thắng:** Hiện thực Shape C (`orchestrator.py`), bộ test `test_orchestrator_safety.py`.
 - **Trần Đức Mạnh:** Nghiên cứu Swarm, thực thi Crash Suite (`crash.json`), chạy Benchmark (`benchmark.json`), viết test `test_manh_eval.py`, hoàn thiện ADR, Research Card và nghiệm thu.

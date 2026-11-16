@@ -5,7 +5,7 @@
 - Tên nhóm: SCP404
 - Lớp: L3A
 - Repo nhóm: `K5-L3A-DAY08-SCP404-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt: https://github.com/ntphong4044/K5-L3A-DAY08-SCP404-FromWorkflowsToAgents, nhánh main, aba170e
+- URL repo, nhánh nộp, commit chốt: https://github.com/ntphong4044/K5-L3A-DAY08-SCP404-FromWorkflowsToAgents, nhánh main, 61b422a
 
 ## Thành viên
 
@@ -27,7 +27,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| Nguyễn Tuấn Phong | Shape A Workflow, Integration | cb097ad, aa781c9 | src/tests/test_workflow_safety.py |
+| Nguyễn Tuấn Phong | Shape A Workflow, Integration, Bonus B3 | cb097ad, aa781c9, 61b422a | src/tests/test_workflow_safety.py, src/tests/test_bonus_swarm_verified.py |
 | Lê Anh Quân | Shape B Single (ReAct) | 0e28b4e | src/tests/test_single_safety.py |
 | Kim Đức Thắng | Shape C Orchestrator, Handoff | 927f00b | src/tests/test_orchestrator_safety.py |
 | Trần Đức Mạnh | Shape D Swarm, Crash Suite, Eval & ADR | aba170e, 3f9126a | src/tests/test_manh_eval.py |
@@ -50,17 +50,19 @@ Tóm tắt từng thành viên bên dưới; chi tiết trong báo cáo cá nhâ
 
 - Shape A `workflow` (`src/lab8/shapes/workflow.py`): claims flow bằng các bước Python cố định (CP2, CP3).
 - Tích hợp nhóm: merge code các thành viên, giữ `python -m pytest -q` xanh, điền `TEAM.md`.
+- Bonus B3 (`src/bonus/`): swarm_verified, bộ claim đối kháng, `report/team/bonus_report.md`.
 
 **Đóng góp cụ thể**
 
 - Thay stub `not_implemented` bằng workflow: `get_claim_view` → `needs_info` khi thiếu `order_id` → `lookup_order` theo principal (`escalated` khi không thấy) → quote bằng `compute_compensation` từ order row → `denied` khi quote 0 → `issue_refund` với quote đầy đủ và `crash_at`. MockLLM chỉ soạn câu trả lời.
 - Không bắt `InjectedCrash` (flush trace rồi ném lại); trace không ghi ticket, claim row hay order row thô.
 - Test `src/tests/test_workflow_safety.py` (5 test): ticket khai trễ sai (C-002, cả 5 seed), prompt injection (C-009), `needs_info` vẫn có trace, không lộ secret/PII, crash rồi resume chỉ một refund.
+- Bonus B3: thêm verifier bằng code vào swarm (`bonus/swarm_verified.py`), 10 claim đối kháng nhãn viết tay (`bonus/cases.jsonl`, `bonus/world.json`), test `src/tests/test_bonus_swarm_verified.py` (7 test).
 
 **Bằng chứng**
 
-- Commit: `cb097ad` (workflow), `aa781c9` (test).
-- `pytest -m student -k "workflow]"`: 62 passed; `tests/test_workflow_safety.py`: 5 passed.
+- Commit: `cb097ad` (workflow), `aa781c9` (test), `61b422a` (bonus B3).
+- `pytest -m student -k "workflow]"`: 62 passed; `tests/test_workflow_safety.py`: 5 passed; `tests/test_bonus_swarm_verified.py`: 7 passed.
 - Báo cáo cá nhân: `report/team/2A202603712_NguyenTuanPhong.md`
 
 ### 2. 2A202603576_LeAnhQuan — Lê Anh Quân
