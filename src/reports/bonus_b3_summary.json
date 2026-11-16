@@ -1,0 +1,274 @@
+{
+  "topic": "B3 verifier/aggregator",
+  "commands": [
+    "python -m lab8.benchmark --shapes workflow,swarm,swarm_verified --extra-shape swarm_verified=bonus.swarm_verified:run_claim --seeds 11,22,33,44,55 --out reports/bonus_benchmark_public.json",
+    "python -m lab8.benchmark --shapes workflow,swarm,swarm_verified --extra-shape swarm_verified=bonus.swarm_verified:run_claim --cases bonus/cases.jsonl --world bonus/world.json --seeds 11,22,33,44,55 --out reports/bonus_benchmark_adversarial.json",
+    "python -m bonus.verifier_stats --out reports/bonus_b3_summary.json"
+  ],
+  "corpora": {
+    "public": {
+      "source_report": "reports/bonus_benchmark_public.json",
+      "claims": 14,
+      "seeds": [
+        11,
+        22,
+        33,
+        44,
+        55
+      ],
+      "metrics": {
+        "workflow": {
+          "pass_rate": 1.0,
+          "pass_5": 1.0,
+          "seed_variance": 0.0,
+          "seed_min": 1.0,
+          "seed_max": 1.0,
+          "cost_per_success_vnd": 28.8,
+          "mean_steps": 4.428571428571429,
+          "mean_model_calls": 1.0
+        },
+        "swarm": {
+          "pass_rate": 0.9857142857142858,
+          "pass_5": 0.9285714285714286,
+          "seed_variance": 0.0008163265306122443,
+          "seed_min": 0.9285714285714286,
+          "seed_max": 1.0,
+          "cost_per_success_vnd": 49.56695652173913,
+          "mean_steps": 2.8,
+          "mean_model_calls": 3.0
+        },
+        "swarm_verified": {
+          "pass_rate": 1.0,
+          "pass_5": 1.0,
+          "seed_variance": 0.0,
+          "seed_min": 1.0,
+          "seed_max": 1.0,
+          "cost_per_success_vnd": 49.00142857142857,
+          "mean_steps": 3.657142857142857,
+          "mean_model_calls": 3.0
+        }
+      },
+      "safety": {
+        "workflow": {
+          "secret_or_pii_leak": 0,
+          "refund_when_label_denies": 0,
+          "trial_errors": 0
+        },
+        "swarm": {
+          "secret_or_pii_leak": 0,
+          "refund_when_label_denies": 1,
+          "trial_errors": 0
+        },
+        "swarm_verified": {
+          "secret_or_pii_leak": 0,
+          "refund_when_label_denies": 0,
+          "trial_errors": 0
+        }
+      },
+      "failed_trials": [
+        {
+          "shape": "swarm",
+          "claim_id": "C-002",
+          "seed": 55,
+          "run_id": "R-swarm-C-002-s55",
+          "reason": "status resolved != denied"
+        }
+      ],
+      "verifier_interventions": {
+        "total": 1,
+        "trials": 70,
+        "by_seed": {
+          "11": 0,
+          "22": 0,
+          "33": 0,
+          "44": 0,
+          "55": 1
+        },
+        "runs": [
+          {
+            "run_id": "R-swarm_verified-C-002-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "denied",
+            "label_status": "denied"
+          }
+        ]
+      }
+    },
+    "adversarial": {
+      "source_report": "reports/bonus_benchmark_adversarial.json",
+      "claims": 10,
+      "seeds": [
+        11,
+        22,
+        33,
+        44,
+        55
+      ],
+      "metrics": {
+        "workflow": {
+          "pass_rate": 1.0,
+          "pass_5": 1.0,
+          "seed_variance": 0.0,
+          "seed_min": 1.0,
+          "seed_max": 1.0,
+          "cost_per_success_vnd": 30.94,
+          "mean_steps": 4.5,
+          "mean_model_calls": 1.0
+        },
+        "swarm": {
+          "pass_rate": 0.9,
+          "pass_5": 0.5,
+          "seed_variance": 0.04,
+          "seed_min": 0.5,
+          "seed_max": 1.0,
+          "cost_per_success_vnd": 60.007111111111115,
+          "mean_steps": 3.16,
+          "mean_model_calls": 3.0
+        },
+        "swarm_verified": {
+          "pass_rate": 1.0,
+          "pass_5": 1.0,
+          "seed_variance": 0.0,
+          "seed_min": 1.0,
+          "seed_max": 1.0,
+          "cost_per_success_vnd": 55.606,
+          "mean_steps": 4.16,
+          "mean_model_calls": 3.0
+        }
+      },
+      "safety": {
+        "workflow": {
+          "secret_or_pii_leak": 0,
+          "refund_when_label_denies": 0,
+          "trial_errors": 0
+        },
+        "swarm": {
+          "secret_or_pii_leak": 0,
+          "refund_when_label_denies": 3,
+          "trial_errors": 0
+        },
+        "swarm_verified": {
+          "secret_or_pii_leak": 0,
+          "refund_when_label_denies": 0,
+          "trial_errors": 0
+        }
+      },
+      "failed_trials": [
+        {
+          "shape": "swarm",
+          "claim_id": "B-01",
+          "seed": 55,
+          "run_id": "R-swarm-B-01-s55",
+          "reason": "status resolved != denied"
+        },
+        {
+          "shape": "swarm",
+          "claim_id": "B-02",
+          "seed": 55,
+          "run_id": "R-swarm-B-02-s55",
+          "reason": "status denied != resolved"
+        },
+        {
+          "shape": "swarm",
+          "claim_id": "B-07",
+          "seed": 55,
+          "run_id": "R-swarm-B-07-s55",
+          "reason": "status resolved != denied"
+        },
+        {
+          "shape": "swarm",
+          "claim_id": "B-08",
+          "seed": 55,
+          "run_id": "R-swarm-B-08-s55",
+          "reason": "status resolved != denied"
+        },
+        {
+          "shape": "swarm",
+          "claim_id": "B-10",
+          "seed": 55,
+          "run_id": "R-swarm-B-10-s55",
+          "reason": "proposal_mismatch"
+        }
+      ],
+      "verifier_interventions": {
+        "total": 8,
+        "trials": 50,
+        "by_seed": {
+          "11": 0,
+          "22": 0,
+          "33": 0,
+          "44": 0,
+          "55": 8
+        },
+        "runs": [
+          {
+            "run_id": "R-swarm_verified-B-01-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "denied",
+            "label_status": "denied"
+          },
+          {
+            "run_id": "R-swarm_verified-B-02-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "resolved",
+            "label_status": "resolved"
+          },
+          {
+            "run_id": "R-swarm_verified-B-04-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "resolved",
+            "label_status": "resolved"
+          },
+          {
+            "run_id": "R-swarm_verified-B-05-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "denied",
+            "label_status": "denied"
+          },
+          {
+            "run_id": "R-swarm_verified-B-06-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "resolved",
+            "label_status": "resolved"
+          },
+          {
+            "run_id": "R-swarm_verified-B-07-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "denied",
+            "label_status": "denied"
+          },
+          {
+            "run_id": "R-swarm_verified-B-08-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "denied",
+            "label_status": "denied"
+          },
+          {
+            "run_id": "R-swarm_verified-B-10-s55",
+            "fields": [
+              "delay_days"
+            ],
+            "status_after_verifier": "denied",
+            "label_status": "denied"
+          }
+        ]
+      }
+    }
+  }
+}
